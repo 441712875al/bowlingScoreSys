@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <SplitPane dividerPositions="0.24749163879598662" prefHeight="600.0" prefWidth="900.0">
+         <items>
+            <AnchorPane prefHeight="598.0" prefWidth="279.0">
+               <children>
+                  <VBox fx:id="Menu" alignment="CENTER" prefHeight="604.0" prefWidth="219.0" spacing="80.0">
+                     <children>
+                        <Button fx:id="btnInfo" mnemonicParsing="false" onAction="#Info" prefHeight="51.0" prefWidth="123.0" text="信息管理">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnGame" mnemonicParsing="false" onAction="#Game" prefHeight="51.0" prefWidth="123.0" text="赛事管理">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnScore" mnemonicParsing="false" onAction="#Result" prefHeight="51.0" prefWidth="123.0" text="结果查询">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </opaqueInsets>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="529.0" prefWidth="633.0">
+               <children>
+                  <Pane fx:id="gamePane" prefHeight="600.0" prefWidth="673.0" visible="false">
+                     <children>
+                        <Button fx:id="btnInitGame" layoutX="387.0" layoutY="22.0" mnemonicParsing="false" onAction="#startGame" prefHeight="35.0" prefWidth="103.0" text="开始比赛" />
+                        <TableView fx:id="gameTable" editable="true" layoutX="13.0" layoutY="71.0" prefHeight="519.0" prefWidth="649.0">
+                          <columns>
+                            <TableColumn prefWidth="124.66667175292969" sortable="false" text="队伍编号" />
+                              <TableColumn prefWidth="124.66667175292969" sortable="false" text="队员姓名" />
+                              <TableColumn prefWidth="124.66667175292969" sortable="false" text="队员编号" />
+                              <TableColumn prefWidth="124.66667175292969" sortable="false" text="总分" />
+                              <TableColumn prefWidth="146.33331298828125" text="排名" />
+                          </columns>
+                        </TableView>
+                        <ChoiceBox fx:id="gameType" layoutX="125.0" layoutY="24.0" prefWidth="150.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="单人赛" />
+                                 <String fx:value="双人赛" />
+                                 <String fx:value="3人赛" />
+                                 <String fx:value="5人赛" />
+                                 <String fx:value="精英赛" />
+                              </FXCollections>
+                           </items>
+                        </ChoiceBox>
+                        <Label fx:id="hint" layoutX="45.0" layoutY="21.0" prefHeight="38.0" prefWidth="76.0" text="比赛类型" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="informationPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="673.0" visible="false">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="45.0" layoutY="34.0" prefHeight="92.0" prefWidth="608.0" spacing="30.0">
+                           <children>
+                              <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addPlayer" prefHeight="51.0" prefWidth="123.0" text="添加队员">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnQuery" mnemonicParsing="false" onAction="#queryPlayer" prefHeight="51.0" prefWidth="123.0" text="查询队员">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#updatePlayer" prefHeight="51.0" prefWidth="123.0" text="更新队员">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deletePlayer" prefHeight="51.0" prefWidth="123.0" text="删除队员">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="hint" layoutX="136.0" layoutY="200.0" prefHeight="38.0" prefWidth="76.0" text="姓名" textFill="#f7f7f7">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="hint" layoutX="136.0" layoutY="275.0" prefHeight="38.0" prefWidth="76.0" text="编号" textFill="#f3efef">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="InfoName" layoutX="209.0" layoutY="208.0" />
+                        <TextField fx:id="InfoId" layoutX="209.0" layoutY="282.0" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="resultPane" prefHeight="600.0" prefWidth="673.0">
+                     <children>
+                        <Button fx:id="btnQueryResult" layoutX="531.0" layoutY="15.0" mnemonicParsing="false" onAction="#queryResult" prefHeight="35.0" prefWidth="103.0" text="查询结果">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="resultName" layoutX="150.0" layoutY="19.0" prefHeight="26.0" prefWidth="140.0" />
+                        <TextField fx:id="resultId" layoutX="348.0" layoutY="19.0" prefHeight="26.0" prefWidth="103.0" />
+                        <Label fx:id="hint" layoutX="86.0" layoutY="19.0" prefHeight="26.0" prefWidth="40.0" text="姓名" textFill="#f3f0f0">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="hint" layoutX="311.0" layoutY="19.0" prefHeight="26.0" prefWidth="26.0" text="ID" textFill="#fcfafa">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="resultTable" layoutX="13.0" layoutY="72.0" prefHeight="519.0" prefWidth="649.0">
+                           <columns>
+                              <TableColumn prefWidth="60" sortable="false" text="比赛类型" />
+                              <TableColumn prefWidth="60" sortable="false" text="选手编号" />
+                              <TableColumn prefWidth="60" sortable="false" text="队伍编号" />
+                              <TableColumn prefWidth="55.33329772949219" sortable="false" text="姓名" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="1轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="2轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="3轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="4轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="5轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="6轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="7轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="8轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="9轮" />
+                              <TableColumn editable="false" prefWidth="36.000091552734375" sortable="false" text="10轮" />
+                              <TableColumn editable="false" prefWidth="45.66668701171875" sortable="false" text="总分" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+               </children></AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+   <stylesheets>
+      <URL value="@test.css" />
+   </stylesheets>
+</Pane>
