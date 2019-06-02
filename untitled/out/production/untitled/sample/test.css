@@ -1,11 +1,15 @@
 #Menu{
-    -fx-background-color: rgba(0, 0, 0, 0.81);
+    -fx-background-color: rgba(0, 0, 0, 0.85);
 }
 #gamePane,#resultPane,#informationPane{
-    -fx-background-color: rgba(0, 0, 0, 0.81);
+    -fx-background-color: rgba(0, 0, 0, 0.85);
 }
 
-
+#hint{
+    -fx-font-: Sans-serif ;
+    -fx-font-size: 14pt;
+    -fx-text-fill: #ffffff  ;
+}
 
 .button{
     -fx-background-color: #43eee8;  /* fallback for old browsers */

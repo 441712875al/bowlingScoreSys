@@ -19,4 +19,6 @@ public interface PlayerDao {
      * @return
      */
     List<Player> findAllPlayer();
+
+    void deletePlayer(Player player);
 }

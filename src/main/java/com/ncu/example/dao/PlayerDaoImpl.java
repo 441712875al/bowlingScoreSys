@@ -14,15 +14,12 @@ import java.util.List;
 @Repository
 public class PlayerDaoImpl implements PlayerDao {
 
-    @Autowired
 
     private  JdbcTemplate jdbcTemplate;
 
-//    private static PlayerDaoImpl playerDaoImpl;
-
-//    public  PlayerDaoImpl() {
-//        this.jdbcTemplate = JDBCUtils.getJdbcTemplate();
-//    }
+    public  PlayerDaoImpl() {
+        this.jdbcTemplate = JDBCUtils.getJdbcTemplate();
+    }
 
     /**
      * 单例模式自己维护
@@ -40,6 +37,9 @@ public class PlayerDaoImpl implements PlayerDao {
 
     //查询所有选手的SQL
     private final String SELECT_PLAYERS_SQL = "select pid,name from player";
+
+    //删除一个选手的信息
+    private final String DELETE_PLAYER_SQL = "delete from player where pid = ? and name =?";
     /**
      * 在选手信息表中插入一条信息，表示已报名参赛
      * @param player
@@ -67,5 +67,11 @@ public class PlayerDaoImpl implements PlayerDao {
             playersTmp.add(new Player(e.getInt("pid"),e.getString("name")));
         });
         return playersTmp;
+    }
+
+    @Override
+    public void deletePlayer(Player player) {
+        Object[] args = {player.getId(),player.getName()};
+        jdbcTemplate.update(DELETE_PLAYER_SQL,args);
     }
 }

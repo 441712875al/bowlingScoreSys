@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.ncu.example.pojo.ContestType;
 
 import com.ncu.example.pojo.Team;
+import com.ncu.example.view.GameScore;
+import com.ncu.example.view.PersonScore;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public interface PTDao {
      * @param contestType
      * @return
      */
-    JSONArray findTeamGrade(ContestType contestType);
+    List<GameScore> findTeamGrade(String contestType);
 
     /**
      * 根据id和姓名查询个人的所有成绩
@@ -32,7 +34,6 @@ public interface PTDao {
      * @param name
      * @return
      */
-    SqlRowSet findPlayerGrade(int pId, String name);
+    List<PersonScore> findPlayerGrade(int pId, String name);
 
-    Map<Integer,String> findMembersByTid(int tId);
 }

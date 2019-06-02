@@ -1,8 +1,6 @@
 package com.ncu.example.Controler;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+
 import com.ncu.example.dao.PTDaoImpl;
 import com.ncu.example.dao.PlayerDaoImpl;
 import com.ncu.example.dao.TeamDaoImpl;
@@ -10,9 +8,7 @@ import com.ncu.example.pojo.ContestType;
 import com.ncu.example.pojo.GroupStrategy;
 import com.ncu.example.pojo.Player;
 import com.ncu.example.pojo.Team;
-import jdk.nashorn.internal.scripts.JS;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Service;
+import com.ncu.example.view.PersonScore;
 
 import java.util.*;
 
@@ -50,7 +46,9 @@ public class Manager {
     public void register(int pid,String name){
         if(players == null)
             players = new ArrayList<>();
-        players.add(new Player(pid,name));
+        Player newPlayer = new Player(pid,name);
+        players.add(newPlayer);
+        savePlayer(newPlayer);
     }
 
 
@@ -67,38 +65,38 @@ public class Manager {
 
 
     //根据选手每次出手击倒的瓶数进行分数统计
-//    public void addScore(){
-//        players.forEach(e->{
-//            List<Integer>[] grades= e.play();
-//            for(int i=0;i<10;i++){
-//                for(Integer o:grades[i])
-//                    e.getScores()[i]+=o;
-//
-//                int count = 0;
-//                if(grades[i].size()==1) count = 2;
-//                else if(e.getScores()[i]==10) count = 1;
-//
-//                for(int j=i+1>9?9:i+1;count>0;j++){
-//                    int k=0;
-//                    if(j==9) k++;
-//                    for(;k<grades[j].size();k++){
-//                        e.getScores()[i]+=grades[j].get(k);
-//                        count--;
-//                        if(count<=0)
-//                            break;
-//                    }
-//                }
-//            }
-//        });
-//    }
+    public void addScore(){
+        players.forEach(e->{
+            List<Integer>[] grades= e.play();
+            for(int i=0;i<10;i++){
+                for(Integer o:grades[i])
+                    e.getScores()[i]+=o;
+
+                int count = 0;
+                if(grades[i].size()==1) count = 2;
+                else if(e.getScores()[i]==10) count = 1;
+
+                for(int j=i+1>9?9:i+1;count>0;j++){
+                    int k=0;
+                    if(j==9) k++;
+                    for(;k<grades[j].size();k++){
+                        e.getScores()[i]+=grades[j].get(k);
+                        count--;
+                        if(count<=0)
+                            break;
+                    }
+                }
+            }
+        });
+    }
 
 
     /**
      * 保存参赛选手信息
      * @param
      */
-    public void savePlayers(){
-        players.forEach(e->playerDaoImpl.insertPlayer(e));
+    public void savePlayer(Player player){
+        playerDaoImpl.insertPlayer(player);
     }
 
 
@@ -123,20 +121,22 @@ public class Manager {
    }
 
 
-   public JSONObject getEliteGrade(int pid, String name){
-        int tolScoreTmp = 0;
-        SqlRowSet rs = ptDaoImpl.findPlayerGrade(pid,name);
-        while (rs.next()){
-            tolScoreTmp +=rs.getInt("tolScore");
-        }
-
-        JSONObject obj = new JSONObject();
-        obj.put("pid",pid);
-        obj.put("name",name);
-        obj.put("tolScore",tolScoreTmp);
-        obj.put("contestType",ContestType.ELITE.getDesc());
-        return obj;
-   }
+//   public JSONObject getEliteGrade(int pid, String name){
+//        int tolScoreTmp = 0;
+//        SqlRowSet rs = ptDaoImpl.findPlayerGrade(pid,name);
+//        while (rs.next()){
+//            tolScoreTmp +=rs.getInt("tolScore");
+//        }
+//
+//        JSONObject obj = new JSONObject();
+//        obj.put("pid",pid);
+//        obj.put("name",name);
+//        obj.put("tolScore",tolScoreTmp);
+//        obj.put("contestType",ContestType.ELITE.getDesc());
+//        return obj;
+//   }
+//
+//   public PersonScore getGrade
 
 
     /**
@@ -144,14 +144,14 @@ public class Manager {
      * @param contestType
      * @return
      */
-    public JSONArray ranking(ContestType contestType){
-//        return PTDaoImpl.getInstance().findTeamGrade(contestType);
-        return ptDaoImpl.findTeamGrade(contestType);
-    }
+//    public JSONArray ranking(ContestType contestType){
+////        return PTDaoImpl.getInstance().findTeamGrade(contestType);
+//        return ptDaoImpl.findTeamGrade(contestType);
+//    }
 
 
-    public void findGrade(int pid,String name){
-        ptDaoImpl.findPlayerGrade(pid,name);
+    public List<PersonScore> findGrade(int pid,String name){
+        return ptDaoImpl.findPlayerGrade(pid,name);
     }
 
     public List<Player> getPlayers() {
@@ -176,5 +176,17 @@ public class Manager {
 
     public void setGroupStrategy(GroupStrategy groupStrategy) {
         this.groupStrategy = groupStrategy;
+    }
+
+    public PTDaoImpl getPtDaoImpl() {
+        return ptDaoImpl;
+    }
+
+    public TeamDaoImpl getTeamDaoImpl() {
+        return teamDaoImpl;
+    }
+
+    public PlayerDaoImpl getPlayerDaoImpl() {
+        return playerDaoImpl;
     }
 }
