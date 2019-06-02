@@ -1,8 +1,11 @@
-package sample;
+package sample.tableInfo;
 
-public class Score {
+
+public class personScore {
     private String name;
-    private String id;
+    private String gameType;
+    private int pid;
+    private int tid;
     private int score1;
     private int score2;
     private int score3;
@@ -14,11 +17,12 @@ public class Score {
     private int score9;
     private int score10;
     private int totalScore;
-    private int rank;
 
-    public Score(String name, String id, int score1, int score2, int score3, int score4, int score5, int score6, int score7, int score8, int score9, int score10, int totalScore, int rank) {
+    public personScore(String name, String gameType,int pid,int tid, int score1, int score2, int score3, int score4, int score5, int score6, int score7, int score8, int score9, int score10, int totalScore) {
         this.name = name;
-        this.id = id;
+        this.gameType = gameType;
+        this.pid = pid;
+        this.tid = tid;
         this.score1 = score1;
         this.score2 = score2;
         this.score3 = score3;
@@ -30,24 +34,15 @@ public class Score {
         this.score9 = score9;
         this.score10 = score10;
         this.totalScore = totalScore;
-        this.rank = rank;
     }
 
-    public int getRank() {
-        return rank;
-    }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
-        return id;
-    }
+
 
     public int getScore1() {
         return score1;
@@ -57,12 +52,36 @@ public class Score {
         return score4;
     }
 
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public int getTid() {
+        return tid;
+    }
+
+    public void setTid(int tid) {
+        this.tid = tid;
+    }
+
     public int getScore5() {
         return score5;
     }
 
     public int getScore6() {
         return score6;
+    }
+
+    public String getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
     }
 
     public int getScore7() {
@@ -129,9 +148,7 @@ public class Score {
         this.name = name;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
 
     public void setScore1(int score1) {
         this.score1 = score1;

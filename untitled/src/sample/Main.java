@@ -15,7 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("计分系统!");
-        primaryStage.setScene(new Scene(root, 900, 618));
+        primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
 
     }
