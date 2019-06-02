@@ -1,6 +1,7 @@
 package com.ncu.example.dao;
 
 
+import com.ncu.example.JDBCUtils;
 import com.ncu.example.pojo.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,7 +20,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 //    private static PlayerDaoImpl playerDaoImpl;
 
-//    private  PlayerDaoImpl() {
+//    public  PlayerDaoImpl() {
 //        this.jdbcTemplate = JDBCUtils.getJdbcTemplate();
 //    }
 

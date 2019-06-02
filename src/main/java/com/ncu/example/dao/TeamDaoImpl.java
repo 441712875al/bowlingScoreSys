@@ -25,7 +25,7 @@ public class TeamDaoImpl implements TeamDao {
     /**
      * 插入小组的sql
      */
-    private final String INSERT_TEAM_SQL = "insert into team (tid,contestType) values (?,?)";
+    private final String INSERT_TEAM_SQL = "insert into team (tid,tolScore,contestType) values (?,?,?)";
 
     /**
      * 将小组的信息插入到team表中
@@ -33,7 +33,7 @@ public class TeamDaoImpl implements TeamDao {
      */
     @Override
     public void insertTeam(Team team) {
-        Object[] args = {team.getId(),team.getContestType().getDesc()};
+        Object[] args = {team.getId(),team.getTolScore(),team.getContestType().getDesc()};
         try{
             jdbcTemplate.update(INSERT_TEAM_SQL,args);
         }catch (Exception e){

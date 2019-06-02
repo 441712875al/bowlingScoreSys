@@ -1,22 +1,32 @@
 package com.ncu.example;
+import com.ncu.example.Controler.Manager;
+import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
 
-import com.ncu.example.pojo.Manager;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.Properties;
-
 
 @SpringBootApplication
-public class ExampleApplication {
+public class ExampleApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context =
                 SpringApplication.run(ExampleApplication.class, args);
-        Manager manager = context.getBean(Manager.class);
-        Properties properties = manager.getEliteGrade(4,"along");
-        System.out.println(properties.getProperty("pid")+"  "+properties.getProperty("name")+"   " +
-                properties.getProperty("tolScore")+"   "+properties.getProperty("contestType"));
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        System.out.println(getClass().getResource("/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
+
+        primaryStage.setTitle("计分系统!");
+        primaryStage.setScene(new Scene(root, 900, 618));
+        primaryStage.show();
     }
 }

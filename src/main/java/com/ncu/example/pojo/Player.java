@@ -114,4 +114,6 @@ public class Player {
     public void setFoulsNum(int foulsNum) {
         this.foulsNum = foulsNum;
     }
+
+
 }
