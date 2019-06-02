@@ -1,5 +1,7 @@
 package com.ncu.example.dao;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ncu.example.pojo.ContestType;
 
 import com.ncu.example.pojo.Team;
@@ -22,13 +24,15 @@ public interface PTDao {
      * @param contestType
      * @return
      */
-    List<Map<Integer,Integer>> findTeamGrade(ContestType contestType);
+    JSONArray findTeamGrade(ContestType contestType);
 
     /**
      * 根据id和姓名查询个人的所有成绩
-     * @param pid
+     * @param pId
      * @param name
      * @return
      */
-    SqlRowSet findPlayerGrade(int pid, String name);
+    SqlRowSet findPlayerGrade(int pId, String name);
+
+    Map<Integer,String> findMembersByTid(int tId);
 }

@@ -1,41 +1,58 @@
-package com.ncu.example.pojo;
+package com.ncu.example.Controler;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ncu.example.dao.PTDaoImpl;
 import com.ncu.example.dao.PlayerDaoImpl;
 import com.ncu.example.dao.TeamDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ncu.example.pojo.ContestType;
+import com.ncu.example.pojo.GroupStrategy;
+import com.ncu.example.pojo.Player;
+import com.ncu.example.pojo.Team;
+import jdk.nashorn.internal.scripts.JS;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 
-@Repository
 public class Manager {
-//    private static Manager manager;
     private List<Player> players;
     private List<Team> teams;
     private GroupStrategy groupStrategy;
+    private static Manager manager;
 
-    @Autowired
     private PTDaoImpl ptDaoImpl;
 
-
-    @Autowired
     private TeamDaoImpl teamDaoImpl;
 
-    @Autowired
     private PlayerDaoImpl playerDaoImpl;
-//    private Manager() {
-//        players = new ArrayList<>();
-//        teams = new ArrayList<>();
-//    }
 
-//    public static Manager getInstance(){
-//        if(manager==null)
-//            manager = new Manager();
-//        return manager;
-//    }
+
+    private  Manager(){
+        ptDaoImpl = new PTDaoImpl();
+        playerDaoImpl = new PlayerDaoImpl();
+        teamDaoImpl = new TeamDaoImpl();
+    }
+
+    public static Manager getInstance(){
+        if(manager ==null)
+            manager= new Manager();
+        return manager;
+    }
+
+    /**
+     * 参赛选手报名
+     * @param pid
+     * @param name
+     */
+    public void register(int pid,String name){
+        if(players == null)
+            players = new ArrayList<>();
+        players.add(new Player(pid,name));
+    }
+
 
 
     /**
@@ -47,9 +64,6 @@ public class Manager {
         //将新产生的分组加入到teams中
         setTeams(groupStrategy.group());
     }
-
-
-
 
 
     //根据选手每次出手击倒的瓶数进行分数统计
@@ -88,6 +102,7 @@ public class Manager {
     }
 
 
+
     /**
      * 裁判将小组的信息保存到team表中
      * @param
@@ -108,19 +123,19 @@ public class Manager {
    }
 
 
-   public Properties getEliteGrade(int pid,String name){
+   public JSONObject getEliteGrade(int pid, String name){
         int tolScoreTmp = 0;
         SqlRowSet rs = ptDaoImpl.findPlayerGrade(pid,name);
         while (rs.next()){
             tolScoreTmp +=rs.getInt("tolScore");
         }
 
-        Properties properties = new Properties();
-        properties.setProperty("pid",pid+"");
-        properties.setProperty("name",name);
-        properties.setProperty("tolScore",tolScoreTmp+"");
-        properties.setProperty("contestType",ContestType.ELITE.getDesc());
-        return properties;
+        JSONObject obj = new JSONObject();
+        obj.put("pid",pid);
+        obj.put("name",name);
+        obj.put("tolScore",tolScoreTmp);
+        obj.put("contestType",ContestType.ELITE.getDesc());
+        return obj;
    }
 
 
@@ -129,16 +144,15 @@ public class Manager {
      * @param contestType
      * @return
      */
-    public List<Map<Integer,Integer>> ranking(ContestType contestType){
+    public JSONArray ranking(ContestType contestType){
 //        return PTDaoImpl.getInstance().findTeamGrade(contestType);
         return ptDaoImpl.findTeamGrade(contestType);
     }
 
+
     public void findGrade(int pid,String name){
         ptDaoImpl.findPlayerGrade(pid,name);
     }
-
-
 
     public List<Player> getPlayers() {
         return players;
