@@ -1,6 +1,7 @@
 package com.ncu.example.view;
 
 import com.ncu.example.Controler.Manager;
+import com.ncu.example.pojo.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -88,8 +89,8 @@ public class Controller {
     @FXML
     public void addPlayer(){
         String name = InfoName.getText();
-        int id = Integer.parseInt(InfoId.getText());
-        manager.register(id,name);
+        int pId = Integer.parseInt(InfoId.getText());
+        manager.register(pId,name);
     }
 
     @FXML
@@ -104,7 +105,9 @@ public class Controller {
 
     @FXML
     public void deletePlayer(){
-
+        String name = InfoName.getText();
+        int pId = Integer.parseInt(InfoId.getText());
+        manager.getPlayerDaoImpl().deletePlayer(new Player(pId,name));
     }
 
     @FXML

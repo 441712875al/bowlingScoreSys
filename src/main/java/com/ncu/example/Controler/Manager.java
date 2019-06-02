@@ -66,28 +66,32 @@ public class Manager {
 
     //根据选手每次出手击倒的瓶数进行分数统计
     public void addScore(){
-        players.forEach(e->{
-            List<Integer>[] grades= e.play();
-            for(int i=0;i<10;i++){
-                for(Integer o:grades[i])
-                    e.getScores()[i]+=o;
+        teams.forEach(team->{
+            for(Player e:team.getMembers()){
+                List<Integer>[] grades= e.play();
+                for(int i=0;i<10;i++){
+                    for(Integer o:grades[i])
+                        e.getScores()[i]+=o;
 
-                int count = 0;
-                if(grades[i].size()==1) count = 2;
-                else if(e.getScores()[i]==10) count = 1;
+                    int count = 0;
+                    if(grades[i].size()==1) count = 2;
+                    else if(e.getScores()[i]==10) count = 1;
 
-                for(int j=i+1>9?9:i+1;count>0;j++){
-                    int k=0;
-                    if(j==9) k++;
-                    for(;k<grades[j].size();k++){
-                        e.getScores()[i]+=grades[j].get(k);
-                        count--;
-                        if(count<=0)
-                            break;
+                    for(int j=i+1>9?9:i+1;count>0;j++){
+                        int k=0;
+                        if(j==9) k++;
+                        for(;k<grades[j].size();k++){
+                            e.getScores()[i]+=grades[j].get(k);
+                            count--;
+                            if(count<=0)
+                                break;
+                        }
                     }
                 }
             }
         });
+
+        savePt();//将小组成员的分数保存
     }
 
 
@@ -141,7 +145,7 @@ public class Manager {
 
     /**
      * 对每个小组进行的赛事进行排名
-     * @param contestType
+     * @param
      * @return
      */
 //    public JSONArray ranking(ContestType contestType){

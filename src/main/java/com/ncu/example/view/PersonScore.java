@@ -1,14 +1,8 @@
-<<<<<<< HEAD:src/main/java/com/ncu/example/view/PersonScore.java
+
 package com.ncu.example.view;
 
 
 public class PersonScore {
-=======
-package sample.tableInfo;
-
-
-public class personScore {
->>>>>>> 9b49dc3ce08eca5118520e710320cfda2504e56e:untitled/src/sample/tableInfo/personScore.java
     private String name;
     private String gameType;
     private int pid;
@@ -25,12 +19,10 @@ public class personScore {
     private int score10;
     private int totalScore;
 
-<<<<<<< HEAD:src/main/java/com/ncu/example/view/PersonScore.java
 
-    public PersonScore(String name, String gameType, int pid, int tid, int score1, int score2, int score3, int score4, int score5, int score6, int score7, int score8, int score9, int score10, int totalScore) {
-=======
-    public personScore(String name, String gameType,int pid,int tid, int score1, int score2, int score3, int score4, int score5, int score6, int score7, int score8, int score9, int score10, int totalScore) {
->>>>>>> 9b49dc3ce08eca5118520e710320cfda2504e56e:untitled/src/sample/tableInfo/personScore.java
+    public PersonScore(String name, String gameType,int pid,int tid, int score1,
+                       int score2, int score3, int score4, int score5, int score6,
+                       int score7, int score8, int score9, int score10, int totalScore) {
         this.name = name;
         this.gameType = gameType;
         this.pid = pid;
