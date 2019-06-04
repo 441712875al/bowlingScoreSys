@@ -112,14 +112,17 @@ public class Controller {
         //用于连接表格的数据模型
         gameScore[] score = new gameScore[100];
         for(int i=0;i<100;i++){{
-            score[i] = new gameScore(1,i,"ha"+i,10+i,10+i);
+            score[i] = new gameScore(1,1,"ha"+i,10+i,10+i);
         }}
 
 
-
         ObservableList<gameScore> data = FXCollections.observableArrayList(score);
+        String[] tableList = {"tid","pid","name","score","rank"};
+        for(int i=0;i<5;i++){
+            ((TableColumn) gameTable.getColumns().get(i)).setCellValueFactory(new PropertyValueFactory<gameScore, String>(tableList[i]));
+        }
 
-        ((TableColumn) gameTable.getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("tid"));
+
         ((TableColumn) gameTable.getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("pid"));
         ((TableColumn) gameTable.getColumns().get(2)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("name"));
         ((TableColumn) gameTable.getColumns().get(3)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("score"));
