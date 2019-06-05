@@ -4,6 +4,7 @@ import com.ncu.example.Controler.Manager;
 import com.ncu.example.pojo.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -93,21 +94,34 @@ public class Controller {
         manager.register(pId,name);
     }
 
-    @FXML
-    public void queryPlayer(){
-
-    }
-
-    @FXML
-    public void updatePlayer(){
-
-    }
-
+    /**
+     * 删除player
+     */
     @FXML
     public void deletePlayer(){
         String name = InfoName.getText();
         int pId = Integer.parseInt(InfoId.getText());
         manager.getPlayerDaoImpl().deletePlayer(new Player(pId,name));
+    }
+
+
+    @FXML
+    private TableView infoTable;
+
+    /**
+     * 显示所有运动员的个人信息
+     * @param event
+     */
+    @FXML
+    void displayAllPlayer(ActionEvent event) {
+
+        //将查询到的信息返回LIST 即可！！！！
+        List<Player> players = new ArrayList<>();
+        ObservableList<Player> data = FXCollections.observableList(players);
+
+        ((TableColumn) infoTable.getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
+        ((TableColumn) infoTable.getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<Player, String>("id"));
+        infoTable.setItems(data);
     }
 
     @FXML
@@ -137,9 +151,6 @@ public class Controller {
         //查询对象信息
         String name = resultName.getText();
         int pId = Integer.parseInt(resultId.getText());
-
-      //把数据存到personScore数组就行了！！！！！！！
-
 
         List<PersonScore> score = manager.getPtDaoImpl().findPlayerGrade(pId,name);
 

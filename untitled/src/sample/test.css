@@ -1,7 +1,4 @@
-#Menu{
-    -fx-background-color: rgba(0, 0, 0, 0.85);
-}
-#gamePane,#resultPane,#informationPane{
+#Menu,#gamePane,#resultPane,#teamPane,#informationPane{
     -fx-background-color: rgba(0, 0, 0, 0.85);
 }
 
@@ -15,5 +12,6 @@
     -fx-background-color: #43eee8;  /* fallback for old browsers */
     -fx-font-: Sans-serif ;
     -fx-font-size: 14pt;
-    -fx-text-fill: #ffffff  ;
+    -fx-text-fill: #ffffff;
 }
+

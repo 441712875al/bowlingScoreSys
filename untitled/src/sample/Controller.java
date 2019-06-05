@@ -15,7 +15,7 @@ import sample.tableInfo.personScore;
 
 public class Controller {
     /**
-     * 三个主面板
+     * 四个主面板
      */
     @FXML
     private Pane informationPane;
@@ -23,6 +23,8 @@ public class Controller {
     private Pane gamePane;
     @FXML
     private Pane resultPane;
+    @FXML
+    private Pane teamPane;
 
     /**
      *信息管理界面的文本控件
@@ -70,12 +72,22 @@ public class Controller {
     }
 
     /**
+     * 对队伍管理进行响应，切换右侧界面
+     */
+    @FXML
+    protected void Team(){
+        closeAll();
+        teamPane.setVisible(true);
+    }
+
+    /**
      * 关闭右侧所有面板
      */
     public void closeAll(){
         informationPane.setVisible(false);
         gamePane.setVisible(false);
         resultPane.setVisible(false);
+        teamPane.setVisible(false);
     }
 
     /**
@@ -95,12 +107,12 @@ public class Controller {
     }
 
     @FXML
-    public void updatePlayer(){
+    public void deletePlayer(){
 
     }
 
     @FXML
-    public void deletePlayer(){
+    public void displayAllPlayer(){
 
     }
 
