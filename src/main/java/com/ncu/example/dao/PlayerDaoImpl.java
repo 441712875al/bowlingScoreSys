@@ -1,7 +1,6 @@
 package com.ncu.example.dao;
 
 
-import com.ncu.example.JDBCUtils;
 import com.ncu.example.pojo.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,21 +14,8 @@ import java.util.List;
 public class PlayerDaoImpl implements PlayerDao {
 
 
+    @Autowired
     private  JdbcTemplate jdbcTemplate;
-
-    public  PlayerDaoImpl() {
-        this.jdbcTemplate = JDBCUtils.getJdbcTemplate();
-    }
-
-    /**
-     * 单例模式自己维护
-     * @return
-     */
-//    public static PlayerDaoImpl getInstance(){
-//        if(playerDaoImpl==null)
-//            playerDaoImpl = new PlayerDaoImpl();
-//        return playerDaoImpl;
-//    }
 
 
     //插入一个选手SQL
@@ -38,21 +24,21 @@ public class PlayerDaoImpl implements PlayerDao {
     //查询所有选手的SQL
     private final String SELECT_PLAYERS_SQL = "select pid,name from player";
 
+    //查询某个选手的信息
+    private final String SELECT_PLAYER_SQL = "select count(*) from player where pid=? and name=?";
+
+
     //删除一个选手的信息
     private final String DELETE_PLAYER_SQL = "delete from player where pid = ? and name =?";
     /**
      * 在选手信息表中插入一条信息，表示已报名参赛
-     * @param player
+     * @param player 选手信息类
      */
     @Override
-    public void insertPlayer(Player player) {
+    public int insertPlayer(Player player) {
         Object[] args = {player.getId(),player.getName()};
-        try{
-            jdbcTemplate.update(INSERT_PLAYER_SQL,args);
-        }catch (Exception e){
-            System.out.println("插入失败");
-            e.printStackTrace();
-        }
+        jdbcTemplate.update(INSERT_PLAYER_SQL,args);
+        return 1;
     }
 
 
@@ -69,9 +55,19 @@ public class PlayerDaoImpl implements PlayerDao {
         return playersTmp;
     }
 
+
+    /**
+     * 删除指定选手的信息
+     * @param player
+     * @return
+     */
     @Override
-    public void deletePlayer(Player player) {
+    public int  deletePlayer(Player player) {
         Object[] args = {player.getId(),player.getName()};
+        if(jdbcTemplate.queryForObject(SELECT_PLAYER_SQL,args,Integer.class)!=1)
+            return 0;//数据库没有改选手信息
         jdbcTemplate.update(DELETE_PLAYER_SQL,args);
+        return 1;
     }
+
 }

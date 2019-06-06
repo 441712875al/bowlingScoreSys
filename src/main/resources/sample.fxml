@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ncu.example.view.Controller">
+<Pane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ncu.example.Controler.MgrController">
    <children>
       <SplitPane dividerPositions="0.24749163879598662" prefHeight="600.0" prefWidth="900.0">
          <items>
@@ -66,8 +66,8 @@
                               <FXCollections fx:factory="observableArrayList">
                                  <String fx:value="单人赛" />
                                  <String fx:value="双人赛" />
-                                 <String fx:value="3人赛" />
-                                 <String fx:value="5人赛" />
+                                 <String fx:value="三人赛" />
+                                 <String fx:value="五人赛" />
                                  <String fx:value="精英赛" />
                               </FXCollections>
                            </items>

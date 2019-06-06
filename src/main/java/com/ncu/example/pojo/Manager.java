@@ -1,4 +1,4 @@
-package com.ncu.example.Controler;
+package com.ncu.example.pojo;
 
 
 import com.ncu.example.dao.PTDaoImpl;
@@ -9,34 +9,30 @@ import com.ncu.example.pojo.GroupStrategy;
 import com.ncu.example.pojo.Player;
 import com.ncu.example.pojo.Team;
 import com.ncu.example.view.PersonScore;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import java.util.*;
 
-
+@Repository
 public class Manager {
     private List<Player> players;
     private List<Team> teams;
-    private GroupStrategy groupStrategy;
-    private static Manager manager;
 
+    @Autowired
+    private GroupStrategy groupStrategy;
+
+
+    @Autowired
     private PTDaoImpl ptDaoImpl;
 
+    @Autowired
     private TeamDaoImpl teamDaoImpl;
 
+    @Autowired
     private PlayerDaoImpl playerDaoImpl;
 
 
-    private  Manager(){
-        ptDaoImpl = new PTDaoImpl();
-        playerDaoImpl = new PlayerDaoImpl();
-        teamDaoImpl = new TeamDaoImpl();
-    }
 
-    public static Manager getInstance(){
-        if(manager ==null)
-            manager= new Manager();
-        return manager;
-    }
 
     /**
      * 参赛选手报名
@@ -58,7 +54,9 @@ public class Manager {
      * @param contestType
      */
     public void group(ContestType contestType){
-        setGroupStrategy(new GroupStrategy(players,contestType));
+        groupStrategy.setPlayers(players);
+        groupStrategy.setContestType(contestType);
+
         //将新产生的分组加入到teams中
         setTeams(groupStrategy.group());
     }

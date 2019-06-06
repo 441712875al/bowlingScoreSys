@@ -2,18 +2,15 @@ package com.ncu.example.pojo;
 
 
 
-
-
-
-import com.ncu.example.pojo.ContestType;
-import com.ncu.example.pojo.Player;
-import com.ncu.example.pojo.Team;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
+@Repository
 public class GroupStrategy {
 
     private AtomicInteger counter = new AtomicInteger();
@@ -21,10 +18,6 @@ public class GroupStrategy {
     private ContestType contestType;
 
 
-    public GroupStrategy(List<Player> players, ContestType contestType) {
-        this.players = players;
-        this.contestType = contestType;
-    }
 
     /**
      * 根据比赛形式给每个参赛队员分组
@@ -39,7 +32,6 @@ public class GroupStrategy {
 
             for(int j=i;j<i+num;j++)
                 members.add(players.get(i));
-
 
             teams.add(new Team(counter.getAndIncrement(),members, ContestType.DOUBLE));
         }

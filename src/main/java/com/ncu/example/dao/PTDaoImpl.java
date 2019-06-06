@@ -1,51 +1,43 @@
 package com.ncu.example.dao;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.ncu.example.JDBCUtils;
 import com.ncu.example.pojo.ContestType;
 import com.ncu.example.pojo.Team;
 import com.ncu.example.view.GameScore;
 import com.ncu.example.view.PersonScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class PTDaoImpl implements PTDao {
 
 
+    @Autowired
     private  JdbcTemplate jdbcTemplate;
 
 
-    public PTDaoImpl() {
-        this.jdbcTemplate = JDBCUtils.getJdbcTemplate();
-    }
 
     //保存比赛成绩SQL
-    private final static String INSERT_GRADE_SQL= "INSERT INTO pt (pid,tid," +
+    private final static String INSERT_GRADE_SQL= "" +
+            "INSERT INTO pt (pid,tid," +
             "grid1,grid2,grid3,grid4,grid5," +
-            "grid6,grid7,grid8,grid9,grid10,tolScore,contestType,fouls) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            "grid6,grid7,grid8,grid9,grid10,tolScore,contestType,fouls) " +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     //查询小组比赛成绩SQL
-    private final static String SELECT_TEAMGRADE_SQL = "select t.tid ,name,teamtolScore,p.pId,contestType from team t,player p,pt where " +
-            "p.pId=pt.pid and pt.tId=t.tId and contestType= ? order by t.tId,teamTolScore desc;";
+    private final static String SELECT_TEAMGRADE_SQL =
+            "select t.tid ,name,teamtolScore,p.pId,contestType," +
+                    "rank() over(order by t.tId,teamTolScore desc) degree from team t,player p,pt " +
+                    "where p.pId=pt.pid and pt.tId=t.tId and contestType=?";
 
 
     //查询每种比赛个人的成绩SQL
-    private final static String SELECCT_PLAYERGRADE_SQL = "select pt.* ,name,t.tid,t.contestType from player p,pt,team t  " +
-            "where p.pid=pt.pid and t.tId=pt.tid and p.pId = ? and p.name =?;";
-
-    //查询小组成员的SQL
-//    private final static String SELECT_MEMBERS_SQL = "select pt.pid,name from pt,player p where " +
-//            "p.pid=pt.pid and tid = ?";
+    private final static String SELECCT_PLAYERGRADE_SQL = "" +
+            "select pt.* ,name,t.tid,t.contestType from player p,pt,team t  " +
+            "where p.pid=pt.pid and t.tId=pt.tid and p.pId = ? and p.name =?";
 
 
     /**
@@ -83,8 +75,6 @@ public class PTDaoImpl implements PTDao {
      * @param name
      * @return
      */
-
-
     @Override
     public List<GameScore> findTeamGrade(String game) {
         ContestType contestType = null;
@@ -100,7 +90,7 @@ public class PTDaoImpl implements PTDao {
         jdbcTemplate.query(SELECT_TEAMGRADE_SQL,args,e->{
 
             GameScore gameScoreTmp = new GameScore(e.getInt("tId"),e.getInt("pId"),
-                    e.getString("name"),e.getInt("teamtolScore"),1);
+                    e.getString("name"),e.getInt("teamtolScore"),e.getInt("degree"));
             gameScores.add(gameScoreTmp);
         });
         return gameScores ;
@@ -132,15 +122,4 @@ public class PTDaoImpl implements PTDao {
         });
         return scores;
     }
-
-//    @Override
-//    public Map<Integer,String> findMembersByTid(int tId) {
-//        Map<Integer,String> playerMap = new HashMap<>();
-//        Object[] args = {tId};
-//        jdbcTemplate.query(SELECT_MEMBERS_SQL,args,e->{
-//            playerMap.put(e.getInt("pid"),e.getString("name"));
-//        });
-//
-//        return playerMap;
-//    }
 }
