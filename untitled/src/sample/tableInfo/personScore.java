@@ -1,7 +1,7 @@
 package sample.tableInfo;
 
 
-public class PersonScore {
+public class personScore {
     private String name;
     private String gameType;
     private int pid;
@@ -17,9 +17,8 @@ public class PersonScore {
     private int score9;
     private int score10;
     private int totalScore;
-    private int foulNum;
 
-    public PersonScore(String name, String gameType,int pid,int tid, int score1, int score2, int score3, int score4, int score5, int score6, int score7, int score8, int score9, int score10, int totalScore,int foulNum) {
+    public personScore(String name, String gameType,int pid,int tid, int score1, int score2, int score3, int score4, int score5, int score6, int score7, int score8, int score9, int score10, int totalScore) {
         this.name = name;
         this.gameType = gameType;
         this.pid = pid;
@@ -35,7 +34,6 @@ public class PersonScore {
         this.score9 = score9;
         this.score10 = score10;
         this.totalScore = totalScore;
-        this.foulNum = foulNum;
     }
 
 
@@ -45,13 +43,6 @@ public class PersonScore {
     }
 
 
-    public int getFoulNum() {
-        return foulNum;
-    }
-
-    public void setFoulNum(int foulNum) {
-        this.foulNum = foulNum;
-    }
 
     public int getScore1() {
         return score1;

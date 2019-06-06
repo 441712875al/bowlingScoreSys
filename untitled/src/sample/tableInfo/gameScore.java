@@ -1,13 +1,13 @@
 package sample.tableInfo;
 
-public class GameScore {
+public class gameScore {
     private int tid;
     private int pid;
     private String name;
     private int Score;
     private int rank;
 
-    public GameScore(int tid, int pid, String name, int score, int rank) {
+    public gameScore(int tid, int pid, String name, int score, int rank) {
         this.tid = tid;
         this.pid = pid;
         this.name = name;

@@ -9,6 +9,7 @@ public enum ContestType {
 
     private String desc;
     private int playerNum;
+
     ContestType(String desc, int playerNum) {
         this.desc = desc;
         this.playerNum = playerNum;

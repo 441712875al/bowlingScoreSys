@@ -1,24 +1,15 @@
 # example
 
 
-## 查询界面
+## 赛事查询界面
 
 ### 赛事成绩查询
 
 ```java
-调用方法：JSONArray findTeamGrade(ContestType contestType);
+调用方法：List<GameScore> findTeamGrade(String contestType);
 
-
-
-return 
-{
-    JSONArray[0]{
-        int tId,
-        int tolScore,
-        int rank,
-        Map<Integer,String> playerMap，存储id,name的映射 //单人赛只有一个元素，依次类推
-    }//JSONArray[0]是一个JSONObject
-}
+传入参数:比赛类型(String)
+return 包含一个小组分组信息的类的列表
 ```
 
 
@@ -26,25 +17,11 @@ return
 ### 个人成绩查询
 
 ```java
-调用方法：SqlRowSet fingPlayerGrade（int pid,String name);
-传入参数 pid，name
+调用方法: List<PersonScore> fingPlayerGrade（int pid,String name);
+说明：
+- 传入参数: pid(int)，name(String)
+- return  包含个人比赛信息的类的列表
 
-return 
-SqlROwSet{
-    int pId,
-    int tId,
-    String name,
-    int tolScore,
-    String  contestType,
-    List<Integer> scores
-}
-
-
-//附 SqlRowSet遍历方法
-while(sqlRowSet.next){
-    int pId = sqlRowSet.getInt("pId");
-    String = sqlRowSet.getString;
-}
 ```
 
 
@@ -53,8 +30,20 @@ while(sqlRowSet.next){
 
 ```java
 调用方法：void register(int id,String name); 
-传入参数 id，name
+说明：
+- 传入参数 id，name
+- 无返回
 ```
 
+## 选手信息管理界面
 
+```java
+//查询所有选手的信息
+List<Player> findAllPlayer()
+
+说明：
+- 无传入参数
+- return 返回所有选手的对象
+
+```
 

@@ -1,39 +1,42 @@
 package com.ncu.example.dao;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.ncu.example.pojo.ContestType;
 
+
+import com.ncu.example.pojo.ContestType;
 import com.ncu.example.pojo.Team;
 import com.ncu.example.view.GameScore;
 import com.ncu.example.view.PersonScore;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
+
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
+
+
+@Repository
 public interface PTDao {
 
     /**
      * 插入team组选手的的选手的比赛成绩
-     * @param team
+     * @param team 队伍信息类
      */
-    void insertGrade(Team team);
+    void insertPt(Team team);
 
 
     /**
      * 查询比赛的成绩，结果按总分排名
      * @param contestType
-     * @return
+     * @return 赛事分数信息列表
      */
-    List<GameScore> findTeamGrade(String contestType);
+    List<GameScore> findTeamGrade(ContestType contestType);
 
     /**
      * 根据id和姓名查询个人的所有成绩
-     * @param pId
-     * @param name
-     * @return
+     * @param pId 个人的编号
+     * @param name 选手姓名
+     * @return 个人成绩
      */
     List<PersonScore> findPlayerGrade(int pId, String name);
 
+    List<Team> findTeamINfo();
 }
