@@ -10,4 +10,6 @@ public interface TeamDao {
      * @param team 保存了队伍的信息
      */
     void insertTeam(Team team);
+
+    int findMaxId();
 }

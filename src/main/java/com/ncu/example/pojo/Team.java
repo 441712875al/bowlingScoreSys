@@ -1,15 +1,26 @@
 package com.ncu.example.pojo;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Team {
     private int id;
     private List<Player> members;
     private int tolScore = 0;
+
+
+
     private ContestType contestType;
+    private String membersDesc;
 
     public Team() {
 
+    }
+
+
+    public Team(int id, List<Player> members) {
+        this.id = id;
+        this.members = members;
     }
 
     public  Team(int id, List<Player> members, ContestType contestType) {
@@ -19,15 +30,6 @@ public class Team {
     }
 
 
-    /**
-     * 计算该组的总成绩
-     * @return
-     */
-    public void caculateToltalScore(){
-        members.forEach(e->{
-            tolScore+=e.getTolScore();
-        });
-    }
 
 
     public int getId() {
@@ -39,7 +41,7 @@ public class Team {
     }
 
     public List<Player> getMembers() {
-        return members;
+        return this.members;
     }
 
     public void setMembers(List<Player> members) {
@@ -62,5 +64,16 @@ public class Team {
         this.contestType = contestType;
     }
 
+    public String getMembersDesc() {
+        return Arrays.toString(members.toArray());
+    }
 
+    @Override
+    public String toString() {
+        String desc ="";
+        for (Player e : members) {
+            desc+=e.getName()+" ";
+        }
+        return desc;
+    }
 }
