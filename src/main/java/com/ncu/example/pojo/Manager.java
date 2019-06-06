@@ -4,6 +4,10 @@ package com.ncu.example.pojo;
 import com.ncu.example.dao.PTDaoImpl;
 import com.ncu.example.dao.PlayerDaoImpl;
 import com.ncu.example.dao.TeamDaoImpl;
+import com.ncu.example.pojo.ContestType;
+import com.ncu.example.pojo.GroupStrategy;
+import com.ncu.example.pojo.Player;
+import com.ncu.example.pojo.Team;
 import com.ncu.example.view.PersonScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,7 +17,6 @@ import java.util.*;
 public class Manager {
     private List<Player> players;
     private List<Team> teams;
-
 
     @Autowired
     private GroupStrategy groupStrategy;
@@ -51,7 +54,6 @@ public class Manager {
      * @param contestType
      */
     public void group(ContestType contestType){
-        players = getPlayers();
         groupStrategy.setPlayers(players);
         groupStrategy.setContestType(contestType);
 
@@ -61,24 +63,22 @@ public class Manager {
 
 
     //根据选手每次出手击倒的瓶数进行分数统计
-    public void countScore(){
+    public void addScore(){
         teams.forEach(team->{
             for(Player e:team.getMembers()){
                 List<Integer>[] grades= e.play();
                 for(int i=0;i<10;i++){
-                    for(Integer o:grades[i]){
+                    for(Integer o:grades[i])
                         e.getScores()[i]+=o;
-                    }
-
-                    if(i>=9)
-                        continue;
 
                     int count = 0;
                     if(grades[i].size()==1) count = 2;
                     else if(e.getScores()[i]==10) count = 1;
 
-                    for(int j=i+1;count>0;j++){
-                        for(int k=0;k<grades[j].size();k++){
+                    for(int j=i+1>9?9:i+1;count>0;j++){
+                        int k=0;
+                        if(j==9) k++;
+                        for(;k<grades[j].size();k++){
                             e.getScores()[i]+=grades[j].get(k);
                             count--;
                             if(count<=0)
@@ -86,27 +86,12 @@ public class Manager {
                         }
                     }
                 }
-                e.setTolScore(getPlayerTolscore(e));
-                team.setTolScore(team.getTolScore()+e.getTolScore());
             }
-
         });
-        save();
-    }
-
-
-    public void save(){
-        saveTeams();//保存每个组信息
 
         savePt();//将小组成员的分数保存
     }
 
-    public int getPlayerTolscore(Player player){
-        int scoreTmp = 0;
-        for(Integer o:player.getScores())
-            scoreTmp+=o;
-        return scoreTmp;
-    }
 
     /**
      * 保存参赛选手信息
@@ -131,7 +116,9 @@ public class Manager {
      */
     public void savePt()  {
         teams.forEach(e->{
-                  ptDaoImpl.insertPt(e);
+            for(Player o:e.getMembers()){
+                  ptDaoImpl.insertGrade(e);
+            }
         });
    }
 
@@ -170,8 +157,6 @@ public class Manager {
     }
 
     public List<Player> getPlayers() {
-        if(players==null)
-            players = playerDaoImpl.findAllPlayer();
         return players;
     }
 

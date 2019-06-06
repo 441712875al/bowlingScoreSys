@@ -1,23 +1,27 @@
-package com.ncu.example.view;
+package com.ncu.example.Controler;
 
-import com.ncu.example.Controler.Manager;
+import com.ncu.example.pojo.Manager;
+import com.ncu.example.dao.PlayerDaoImpl;
 import com.ncu.example.pojo.Player;
+import com.ncu.example.view.GameScore;
+import com.ncu.example.view.PersonScore;
+import de.felixroske.jfxsupport.FXMLController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 
-public class Controller {
+
+@FXMLController
+public class MgrController {
     /**
      * 三个主面板
      */
@@ -45,6 +49,11 @@ public class Controller {
     @FXML
     private TableView gameTable;
 
+    @Autowired
+    private PlayerDaoImpl playerDao;
+
+    @Autowired
+    private Manager manager;
 
     /**
      * 对信息管理进行响应，切换右侧界面
@@ -73,7 +82,7 @@ public class Controller {
         resultPane.setVisible(true);
     }
 
-    private Manager manager = Manager.getInstance();
+//    private Manager manager = Manager.getInstance();
 
     /**
      * 关闭右侧所有面板
@@ -113,6 +122,7 @@ public class Controller {
      * @param event
      */
     @FXML
+<<<<<<< HEAD:src/main/java/com/ncu/example/view/Controller.java
     void displayAllPlayer(ActionEvent event) {
 
         //将查询到的信息返回LIST 即可！！！！
@@ -122,6 +132,17 @@ public class Controller {
         ((TableColumn) infoTable.getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
         ((TableColumn) infoTable.getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<Player, String>("id"));
         infoTable.setItems(data);
+=======
+    public void deletePlayer(){
+        String name = InfoName.getText();
+        int pId = Integer.parseInt(InfoId.getText());
+        Player tmp = new Player(pId,name);
+        if(manager.getPlayerDaoImpl().deletePlayer(tmp)==0){
+            showErroMessage("fail to delete this player or don't have this player!");
+            return ;
+        }
+        showInfoMessage("delete player successfully");
+>>>>>>> 657c21dec8c60f01e468d0e98e7955162269162a:src/main/java/com/ncu/example/Controler/MgrController.java
     }
 
     @FXML
@@ -160,5 +181,17 @@ public class Controller {
             ((TableColumn)resultTable.getColumns().get(i)).setCellValueFactory(new PropertyValueFactory<GameScore, String>(tableList[i]));
         }
         resultTable.setItems(data);
+    }
+
+    public void showInfoMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void showErroMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

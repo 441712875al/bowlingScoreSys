@@ -1,5 +1,9 @@
 package com.ncu.example.dao;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 657c21dec8c60f01e468d0e98e7955162269162a
 
 
 import com.ncu.example.pojo.ContestType;

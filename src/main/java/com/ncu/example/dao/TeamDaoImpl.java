@@ -15,7 +15,10 @@ public class TeamDaoImpl implements TeamDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 657c21dec8c60f01e468d0e98e7955162269162a
 
     /**
      * 插入小组的sql

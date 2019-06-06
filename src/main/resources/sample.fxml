@@ -16,7 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <Pane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ncu.example.Controller.Controller">
+=======
+<Pane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ncu.example.Controler.MgrController">
+>>>>>>> 657c21dec8c60f01e468d0e98e7955162269162a
    <children>
       <SplitPane dividerPositions="0.24749163879598662" prefHeight="600.0" prefWidth="900.0">
          <items>
