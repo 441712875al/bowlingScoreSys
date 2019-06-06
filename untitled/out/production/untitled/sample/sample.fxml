@@ -30,7 +30,7 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnTeam" mnemonicParsing="false" onAction="#Team" prefHeight="51.0" prefWidth="123.0" text="分组管理">
+                        <Button fx:id="btnTeam" mnemonicParsing="false" onAction="#Team" prefHeight="51.0" prefWidth="123.0" text="分组查询">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -56,7 +56,6 @@
                <children>
                   <Pane fx:id="gamePane" prefHeight="600.0" prefWidth="673.0" visible="false">
                      <children>
-                        <Button fx:id="btnInitGame" layoutX="509.0" layoutY="17.0" mnemonicParsing="false" onAction="#startGame" prefHeight="35.0" prefWidth="103.0" text="查看结果" />
                         <TableView fx:id="gameTable" editable="true" layoutX="13.0" layoutY="71.0" prefHeight="519.0" prefWidth="649.0">
                           <columns>
                             <TableColumn prefWidth="124.66667175292969" sortable="false" text="队伍编号" />
@@ -82,12 +81,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnInitGame1" layoutX="361.0" layoutY="17.0" mnemonicParsing="false" onAction="#startGame" prefHeight="35.0" prefWidth="103.0" text="开始比赛" />
+                        <Button fx:id="btnInitGame" layoutX="361.0" layoutY="17.0" mnemonicParsing="false" onAction="#startGame" prefHeight="35.0" prefWidth="103.0" text="开始比赛" />
                      </children>
                   </Pane>
                   <Pane fx:id="informationPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="673.0">
                      <children>
-                        <HBox alignment="CENTER" layoutX="396.0" layoutY="454.0" prefHeight="92.0" prefWidth="255.0" spacing="30.0">
+                        <HBox alignment="CENTER" layoutX="395.0" layoutY="254.0" prefHeight="92.0" prefWidth="255.0" spacing="30.0">
                            <children>
                               <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addPlayer" prefHeight="52.0" prefWidth="121.0" text="添加运动员">
                                  <font>
@@ -101,7 +100,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Pane layoutX="395.0" layoutY="56.0" prefHeight="382.0" prefWidth="255.0">
+                        <Pane layoutX="395.0" layoutY="56.0" prefHeight="179.0" prefWidth="255.0">
                            <children>
                               <Label fx:id="hint" layoutX="16.0" layoutY="39.0" prefHeight="29.0" prefWidth="76.0" text="姓名" textFill="#f7f7f7">
                                  <font>
@@ -115,24 +114,6 @@
                               </Label>
                               <TextField fx:id="InfoName" layoutX="73.0" layoutY="42.0" prefHeight="23.0" prefWidth="150.0" />
                               <TextField fx:id="InfoId" layoutX="73.0" layoutY="119.0" prefHeight="23.0" prefWidth="150.0" />
-                              <Label fx:id="hint2" layoutX="16.0" layoutY="253.0" prefHeight="29.0" prefWidth="76.0" text="年龄" textFill="#f7f7f7">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="InfoAge" layoutX="73.0" layoutY="256.0" prefHeight="23.0" prefWidth="150.0" />
-                              <Label fx:id="hint3" layoutX="14.0" layoutY="191.0" prefHeight="29.0" prefWidth="76.0" text="性别" textFill="#f7f7f7">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="InfoSex" layoutX="71.0" layoutY="194.0" prefHeight="23.0" prefWidth="150.0" />
-                              <Label fx:id="hint21" layoutY="325.0" prefHeight="29.0" prefWidth="76.0" text="联系电话" textFill="#f7f7f7">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="InfoTel" layoutX="85.0" layoutY="324.0" prefHeight="26.0" prefWidth="140.0" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -140,14 +121,11 @@
                         </Pane>
                         <TableView fx:id="playersTable" layoutX="29.0" layoutY="84.0" prefHeight="493.0" prefWidth="353.0">
                           <columns>
-                            <TableColumn prefWidth="54.66665840148926" text="姓名" />
-                              <TableColumn prefWidth="67.99999237060547" text="编号" />
-                              <TableColumn prefWidth="39.3333740234375" text="性别" />
-                              <TableColumn prefWidth="95.33335876464844" text="年龄" />
-                              <TableColumn prefWidth="96.66668701171875" text="练习电话" />
+                            <TableColumn prefWidth="159.33330726623535" text="姓名" />
+                              <TableColumn prefWidth="192.6667022705078" text="编号" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnQuery" layoutX="259.0" layoutY="37.0" mnemonicParsing="false" onAction="#displayAllPlayer" prefHeight="38.0" prefWidth="117.0" text="查询">
+                        <Button fx:id="btnQueryPlayer" layoutX="259.0" layoutY="37.0" mnemonicParsing="false" onAction="#displayPlayers" prefHeight="38.0" prefWidth="117.0" text="查询">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -202,59 +180,23 @@
                   </Pane>
                   <Pane fx:id="teamPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="673.0" visible="false">
                      <children>
-                        <HBox alignment="CENTER" layoutX="52.0" layoutY="466.0" prefHeight="92.0" prefWidth="570.0" spacing="40.0">
-                           <children>
-                              <Pane prefHeight="35.0" prefWidth="242.0">
-                                 <children>
-                                    <Label fx:id="hint1" layoutY="13.0" prefHeight="22.0" prefWidth="76.0" text="队伍编号" textFill="#f3efef">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="InfoId11" layoutX="76.0" layoutY="13.0" prefHeight="23.0" prefWidth="150.0" />
-                                    <Pane layoutX="-7.0" layoutY="55.0" prefHeight="35.0" prefWidth="242.0">
-                                       <children>
-                                          <Label fx:id="hint11" layoutX="6.0" layoutY="-8.0" prefHeight="22.0" prefWidth="76.0" text="队伍编号" textFill="#f3efef">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField fx:id="InfoId111" layoutX="82.0" layoutY="-8.0" prefHeight="23.0" prefWidth="150.0" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </Pane>
-                              <Button fx:id="btnAdd1" mnemonicParsing="false" onAction="#addPlayer" prefHeight="51.0" prefWidth="123.0" text="添加队员">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btnDelete1" mnemonicParsing="false" onAction="#deletePlayer" prefHeight="51.0" prefWidth="123.0" text="删除队员">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <TableView fx:id="teamTable" layoutX="56.0" layoutY="124.0" prefHeight="327.0" prefWidth="570.0">
+                        <TableView fx:id="teamTable" layoutX="56.0" layoutY="124.0" prefHeight="438.0" prefWidth="570.0">
                            <columns>
-                              <TableColumn prefWidth="111.33333969116211" text="姓名" />
-                              <TableColumn fx:id="infoTable1" prefWidth="130.0000457763672" text="队员编号" />
-                              <TableColumn fx:id="infoTable11" prefWidth="150.66668701171875" text="队伍编号" />
-                              <TableColumn fx:id="infoTable111" prefWidth="177.99996948242188" text="队伍类型" />
+                              <TableColumn fx:id="infoTable1" prefWidth="75.99999618530273" text="队伍编号" />
+                              <TableColumn fx:id="infoTable111" prefWidth="121.33334350585938" text="队伍类型" />
+                              <TableColumn fx:id="infoTable1111" prefWidth="372.0000762939453" text="队伍成员" />
                            </columns>
                         </TableView>
-                        <Button fx:id="btnQueryPlayers" layoutX="421.0" layoutY="43.0" mnemonicParsing="false" onAction="#displayAllPlayer" prefHeight="51.0" prefWidth="123.0" text="查询">
+                        <Button fx:id="btnQueryTeam" layoutX="448.0" layoutY="43.0" mnemonicParsing="false" onAction="#displayTeam" prefHeight="51.0" prefWidth="123.0" text="查询">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <Label fx:id="hint" layoutX="56.0" layoutY="57.0" prefHeight="22.0" prefWidth="76.0" text="队伍编号" textFill="#f3efef">
+                        <Label fx:id="hint" layoutX="56.0" layoutY="94.0" prefHeight="24.0" prefWidth="123.0" text="分组信息表" textFill="#f3efef">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="InfoId1" layoutX="141.0" layoutY="56.0" prefHeight="23.0" prefWidth="150.0" />
                         <HBox layoutX="421.0" layoutY="269.0" prefHeight="63.0" prefWidth="231.0" />
                      </children>
                   </Pane>
