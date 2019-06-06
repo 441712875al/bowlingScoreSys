@@ -15,7 +15,7 @@ import sample.tableInfo.personScore;
 
 public class Controller {
     /**
-     * 三个主面板
+     * 四个主面板
      */
     @FXML
     private Pane informationPane;
@@ -23,6 +23,8 @@ public class Controller {
     private Pane gamePane;
     @FXML
     private Pane resultPane;
+    @FXML
+    private Pane teamPane;
 
     /**
      *信息管理界面的文本控件
@@ -70,12 +72,22 @@ public class Controller {
     }
 
     /**
+     * 对队伍管理进行响应，切换右侧界面
+     */
+    @FXML
+    protected void Team(){
+        closeAll();
+        teamPane.setVisible(true);
+    }
+
+    /**
      * 关闭右侧所有面板
      */
     public void closeAll(){
         informationPane.setVisible(false);
         gamePane.setVisible(false);
         resultPane.setVisible(false);
+        teamPane.setVisible(false);
     }
 
     /**
@@ -95,12 +107,12 @@ public class Controller {
     }
 
     @FXML
-    public void updatePlayer(){
+    public void deletePlayer(){
 
     }
 
     @FXML
-    public void deletePlayer(){
+    public void displayAllPlayer(){
 
     }
 
@@ -112,14 +124,17 @@ public class Controller {
         //用于连接表格的数据模型
         gameScore[] score = new gameScore[100];
         for(int i=0;i<100;i++){{
-            score[i] = new gameScore(1,i,"ha"+i,10+i,10+i);
+            score[i] = new gameScore(1,1,"ha"+i,10+i,10+i);
         }}
 
 
-
         ObservableList<gameScore> data = FXCollections.observableArrayList(score);
+        String[] tableList = {"tid","pid","name","score","rank"};
+        for(int i=0;i<5;i++){
+            ((TableColumn) gameTable.getColumns().get(i)).setCellValueFactory(new PropertyValueFactory<gameScore, String>(tableList[i]));
+        }
 
-        ((TableColumn) gameTable.getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("tid"));
+
         ((TableColumn) gameTable.getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("pid"));
         ((TableColumn) gameTable.getColumns().get(2)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("name"));
         ((TableColumn) gameTable.getColumns().get(3)).setCellValueFactory(new PropertyValueFactory<gameScore, String>("score"));

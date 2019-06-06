@@ -1,7 +1,7 @@
 #Menu{
     -fx-background-color: rgba(0, 0, 0, 0.85);
 }
-#gamePane,#resultPane,#informationPane{
+#gamePane,#resultPane,#informationPane,#teamPane{
     -fx-background-color: rgba(0, 0, 0, 0.85);
 }
 
