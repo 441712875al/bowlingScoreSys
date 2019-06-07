@@ -1,7 +1,6 @@
 package com.ncu.example.dao;
 
 
-
 import com.ncu.example.pojo.ContestType;
 import com.ncu.example.pojo.Team;
 import com.ncu.example.view.GameScore;
@@ -37,6 +36,7 @@ public interface PTDao {
      * @return 个人成绩
      */
     List<PersonScore> findPlayerGrade(int pId, String name);
+
 
 
     /**

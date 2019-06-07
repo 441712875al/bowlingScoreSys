@@ -7,6 +7,7 @@ import com.ncu.example.view.GameScore;
 import com.ncu.example.view.PersonScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import org.springframework.stereotype.Repository;
 
 
@@ -37,16 +38,13 @@ public class PTDaoImpl implements PTDao {
                     "from team t,player p,pt\n" +
                     "where p.pid=pt.pid and pt.tId=t.tId and contestType=? ";
 
-
     //查询每种比赛个人的成绩SQL
     private final static String SELECCT_PLAYERGRADE_SQL = "" +
             "select pt.* ,name,t.tid,t.contestType from player p,pt,team t  " +
             "where p.pid=pt.pid and t.tId=pt.tid and p.pId = ? and p.name =?";
 
     //查询每个小组及其队员的信息SQL
-
-    private final static String SELECT_TEAMANDPLAYER_SQL = "select t.tid,pt.pid,name,contestType " +
-            "from team t,pt,player p " +
+    private final static String SELECT_TEAMANDPLAYER_SQL = "select t.tid,pt.pid,name,contestType from team t,pt,player p " +
             "where t.tid=pt.tid and pt.pid=p.pid order by 1;";
 
 
@@ -118,10 +116,12 @@ public class PTDaoImpl implements PTDao {
     }
 
 
+
     /**
      * 查询小组的队员信息
      * @return
      */
+
 
     @Override
     public List<Team> findTeamINfo() {
@@ -141,6 +141,5 @@ public class PTDaoImpl implements PTDao {
 
         return teamList;
     }
-
 
 }

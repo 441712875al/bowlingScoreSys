@@ -22,7 +22,9 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+
 import java.util.ArrayList;
+
 
 import java.util.List;
 
@@ -180,6 +182,7 @@ public class Controller {
         }catch (Exception e){
              showInfoMessage("ID 格式输入有误,请重新输入！");
          }
+
     }
 
     /**
@@ -187,8 +190,10 @@ public class Controller {
      * @param event
      */
     @FXML
+
      void deletePlayer(ActionEvent event) {
         //运动员信息
+
 
         String name = InfoName.getText();
         int pId = Integer.parseInt(InfoId.getText());
@@ -196,7 +201,6 @@ public class Controller {
             showInfoMessage("delete player "+name+" successfully!");
         else
             showErroMessage("fail to delete player "+name);
-
         playersTable.refresh();
 
     }
@@ -266,6 +270,8 @@ public class Controller {
 
         ContestType contestType = toContestType((String) gameType.getSelectionModel().getSelectedItem());
 
+
+
         //比赛前分组
 
         manager.group(contestType);
@@ -313,13 +319,13 @@ public class Controller {
      */
 
 
-
     /**
      * 将接受到的字符串
      * @param game
      * @return
      */
     public static ContestType toContestType(String game){
+
         ContestType contestType = null;
         switch (game){
             case "单人赛" : contestType = ContestType.SINGLE;break;

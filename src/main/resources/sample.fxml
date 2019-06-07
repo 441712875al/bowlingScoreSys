@@ -16,7 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <Pane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ncu.example.Controller.Controller">
+
    <children>
       <SplitPane dividerPositions="0.24749163879598662" prefHeight="600.0" prefWidth="900.0">
          <items>
@@ -106,7 +108,6 @@
                               <Insets />
                            </opaqueInsets>
                         </Pane>
-
                         <TableView fx:id="playersTable" layoutX="29.0" layoutY="84.0" prefHeight="493.0" prefWidth="459.0">
                           <columns>
                             <TableColumn prefWidth="237.60004234313965" text="姓名" />
@@ -120,7 +121,6 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-
                         <Label layoutX="29.0" layoutY="28.0" prefHeight="45.0" prefWidth="150.0" text="运动员信息汇总" textFill="#fcf9f9">
 
                            <font>
@@ -169,6 +169,7 @@
                               <TableColumn prefWidth="75.0" sortable="false" text="选手编号" />
                               <TableColumn sortable="false" text="队伍编号" />
                               <TableColumn prefWidth="65.0" sortable="false" text="姓名" />
+
                               <TableColumn editable="false" minWidth="0.0" prefWidth="35.0" sortable="false" text="1轮" />
                               <TableColumn editable="false" prefWidth="35.0" sortable="false" text="2轮" />
                               <TableColumn editable="false" prefWidth="35.0" sortable="false" text="3轮" />
@@ -208,8 +209,6 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-
-
                      </children>
                   </Pane>
                </children></AnchorPane>
