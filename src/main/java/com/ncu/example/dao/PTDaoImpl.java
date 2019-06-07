@@ -7,9 +7,6 @@ import com.ncu.example.view.GameScore;
 import com.ncu.example.view.PersonScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowCallbackHandler;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 
 
@@ -34,6 +31,7 @@ public class PTDaoImpl implements PTDao {
 
     //查询小组比赛成绩SQL
     private final static String SELECT_TEAMGRADE_SQL =
+
             "select t.tid,name,teamtolScore,p.pId,contestType, rank() over(ORDER BY teamTolScore desc) " +
                     "degree " +
                     "from team t,player p,pt\n" +
@@ -46,6 +44,7 @@ public class PTDaoImpl implements PTDao {
             "where p.pid=pt.pid and t.tId=pt.tid and p.pId = ? and p.name =?";
 
     //查询每个小组及其队员的信息SQL
+
     private final static String SELECT_TEAMANDPLAYER_SQL = "select t.tid,pt.pid,name,contestType " +
             "from team t,pt,player p " +
             "where t.tid=pt.tid and pt.pid=p.pid order by 1;";
@@ -123,6 +122,7 @@ public class PTDaoImpl implements PTDao {
      * 查询小组的队员信息
      * @return
      */
+
     @Override
     public List<Team> findTeamINfo() {
         List<Team> teamList = new ArrayList<>();

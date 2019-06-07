@@ -97,9 +97,11 @@ public class Manager {
     }
 
 
+
     /**
      * 将结果保存到数据库
      */
+
     public void save(){
         saveTeams();//保存每个组信息
 

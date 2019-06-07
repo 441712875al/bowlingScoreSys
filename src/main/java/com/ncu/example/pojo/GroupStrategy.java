@@ -22,8 +22,6 @@ public class GroupStrategy {
     @Autowired
     private TeamDaoImpl teamDaoImpl;
 
-
-
     /**
      * 根据比赛形式给每个参赛队员分组
      */

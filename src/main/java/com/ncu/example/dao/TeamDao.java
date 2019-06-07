@@ -11,9 +11,11 @@ public interface TeamDao {
      */
     void insertTeam(Team team);
 
+
     /**
      * 查询在数据库中的ID最大值
      * @return
      */
+
     int findMaxId();
 }

@@ -85,7 +85,9 @@
                   </Pane>
                   <Pane fx:id="informationPane" layoutX="-6.0" layoutY="2.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="773.0" visible="false">
                      <children>
+
                         <Pane layoutX="504.0" layoutY="64.0" prefHeight="179.0" prefWidth="255.0">
+
                            <children>
                               <Label layoutX="16.0" layoutY="39.0" prefHeight="29.0" prefWidth="76.0" text="姓名" textFill="#f7f7f7">
                                  <font>
@@ -104,6 +106,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Pane>
+
                         <TableView fx:id="playersTable" layoutX="29.0" layoutY="84.0" prefHeight="493.0" prefWidth="459.0">
                           <columns>
                             <TableColumn prefWidth="237.60004234313965" text="姓名" />
@@ -111,21 +114,29 @@
                           </columns>
                         </TableView>
                         <Button fx:id="btnQueryPlayer" layoutX="371.0" layoutY="29.0" mnemonicParsing="false" onAction="#displayPlayers" prefHeight="38.0" prefWidth="117.0" text="查询">
+
+
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
+
                         <Label layoutX="29.0" layoutY="28.0" prefHeight="45.0" prefWidth="150.0" text="运动员信息汇总" textFill="#fcf9f9">
+
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
+
                         <Button fx:id="btnDelete" layoutX="576.0" layoutY="400.0" mnemonicParsing="false" onAction="#deletePlayer" prefHeight="50.0" prefWidth="125.0" text="删除运动员">
+
                            <font>
                               <Font name="System Bold" size="10.0" />
                            </font>
                         </Button>
+
                         <Button fx:id="btnAdd" layoutX="577.0" layoutY="300.0" mnemonicParsing="false" onAction="#addPlayer" prefHeight="52.0" prefWidth="121.0" text="添加运动员">
+
                            <font>
                               <Font name="System Bold" size="10.0" />
                            </font>
@@ -153,6 +164,7 @@
                         </Label>
                         <TableView fx:id="resultTable" layoutX="13.0" layoutY="73.0" prefHeight="518.0" prefWidth="734.0">
                            <columns>
+
                               <TableColumn prefWidth="75.0" sortable="false" text="比赛类型" />
                               <TableColumn prefWidth="75.0" sortable="false" text="选手编号" />
                               <TableColumn sortable="false" text="队伍编号" />
@@ -169,10 +181,12 @@
                               <TableColumn editable="false" prefWidth="40.0" sortable="false" text="10轮" />
                               <TableColumn editable="false" prefWidth="40.0" sortable="false" text="犯规" />
                               <TableColumn editable="false" prefWidth="50.0" sortable="false" text="总分" />
+
                            </columns>
                         </TableView>
                      </children>
                   </Pane>
+
                   <Pane fx:id="teamPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="773.0" visible="false">
                      <children>
                         <TableView fx:id="teamTable" layoutX="56.0" layoutY="101.0" prefHeight="466.0" prefWidth="673.0">
@@ -182,15 +196,20 @@
                            </columns>
                         </TableView>
                         <Button fx:id="btnQueryTeam" layoutX="331.0" layoutY="30.0" mnemonicParsing="false" onAction="#displayTeam" prefHeight="51.0" prefWidth="123.0" text="查询">
+
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
+
                         <Label fx:id="hint" layoutX="56.0" layoutY="69.0" prefHeight="24.0" prefWidth="123.0" text="分组信息表" textFill="#f3efef">
+
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
+
+
                      </children>
                   </Pane>
                </children></AnchorPane>

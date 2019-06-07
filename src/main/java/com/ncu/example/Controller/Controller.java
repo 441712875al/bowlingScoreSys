@@ -21,6 +21,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
+import java.util.ArrayList;
+
 import java.util.List;
 
 @FXMLController
@@ -169,6 +172,7 @@ public class Controller {
     void addPlayer(ActionEvent event) {
         //运动员信息
         String name = InfoName.getText();
+
          try{
              int pId =Integer.parseInt(InfoId.getText());
              manager.register(pId,name);
@@ -176,16 +180,14 @@ public class Controller {
         }catch (Exception e){
              showInfoMessage("ID 格式输入有误,请重新输入！");
          }
-
     }
-
 
     /**
      * 依据输入信息，删除运动员
      * @param event
      */
     @FXML
-    void deletePlayer(ActionEvent event) {
+     void deletePlayer(ActionEvent event) {
         //运动员信息
 
         String name = InfoName.getText();
@@ -194,7 +196,9 @@ public class Controller {
             showInfoMessage("delete player "+name+" successfully!");
         else
             showErroMessage("fail to delete player "+name);
+
         playersTable.refresh();
+
     }
 
     /**
@@ -212,8 +216,6 @@ public class Controller {
         ((TableColumn)playersTable.getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
         ((TableColumn)playersTable.getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<Player, String>("id"));
         playersTable.setItems(data);
-
-
     }
 
     /**
@@ -261,6 +263,7 @@ public class Controller {
     @FXML
     void startGame(ActionEvent event) {
         //获取选择比赛类型
+
         ContestType contestType = toContestType((String) gameType.getSelectionModel().getSelectedItem());
 
         //比赛前分组
@@ -308,6 +311,7 @@ public class Controller {
      * @param game
      * @return
      */
+
 
 
     /**

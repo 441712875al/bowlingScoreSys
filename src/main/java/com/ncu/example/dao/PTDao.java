@@ -38,9 +38,11 @@ public interface PTDao {
      */
     List<PersonScore> findPlayerGrade(int pId, String name);
 
+
     /**
      * 查询小组的队员信息
      * @return
      */
+
     List<Team> findTeamINfo();
 }
