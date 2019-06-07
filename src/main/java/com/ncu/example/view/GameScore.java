@@ -54,4 +54,15 @@ public class GameScore {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    @Override
+    public String toString() {
+        return "GameScore{" +
+                "tid=" + tid +
+                ", pid=" + pid +
+                ", name='" + name + '\'' +
+                ", Score=" + Score +
+                ", rank=" + rank +
+                '}';
+    }
 }

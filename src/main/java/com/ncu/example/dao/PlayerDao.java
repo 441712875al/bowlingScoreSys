@@ -20,7 +20,10 @@ public interface PlayerDao {
      */
     List<Player> findAllPlayer();
 
+    /**
+     * 删除指定选手的信息
+     * @param player 选手的信息
+     * @return
+     */
     int  deletePlayer(Player player);
-
-
 }

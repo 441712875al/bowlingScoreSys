@@ -4,10 +4,6 @@ package com.ncu.example.pojo;
 import com.ncu.example.dao.PTDaoImpl;
 import com.ncu.example.dao.PlayerDaoImpl;
 import com.ncu.example.dao.TeamDaoImpl;
-import com.ncu.example.pojo.ContestType;
-import com.ncu.example.pojo.GroupStrategy;
-import com.ncu.example.pojo.Player;
-import com.ncu.example.pojo.Team;
 import com.ncu.example.view.PersonScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +13,7 @@ import java.util.*;
 public class Manager {
     private List<Player> players;
     private List<Team> teams;
+
 
     @Autowired
     private GroupStrategy groupStrategy;
@@ -39,7 +36,7 @@ public class Manager {
      * @param pid
      * @param name
      */
-    public void register(int pid,String name){
+    public void register (int pid,String name){
         if(players == null)
             players = new ArrayList<>();
         Player newPlayer = new Player(pid,name);
@@ -54,6 +51,7 @@ public class Manager {
      * @param contestType
      */
     public void group(ContestType contestType){
+        players = getPlayers();
         groupStrategy.setPlayers(players);
         groupStrategy.setContestType(contestType);
 
@@ -62,23 +60,26 @@ public class Manager {
     }
 
 
+
     //根据选手每次出手击倒的瓶数进行分数统计
-    public void addScore(){
+    public void countScore(){
         teams.forEach(team->{
             for(Player e:team.getMembers()){
                 List<Integer>[] grades= e.play();
                 for(int i=0;i<10;i++){
-                    for(Integer o:grades[i])
+                    for(Integer o:grades[i]){
                         e.getScores()[i]+=o;
+                    }
 
-                    int count = 0;
+                    if(i>=9)
+                        continue;
+
+                    int count = 0;//根据情形得出本轮分数额外获得加分次数
                     if(grades[i].size()==1) count = 2;
                     else if(e.getScores()[i]==10) count = 1;
 
-                    for(int j=i+1>9?9:i+1;count>0;j++){
-                        int k=0;
-                        if(j==9) k++;
-                        for(;k<grades[j].size();k++){
+                    for(int j=i+1;count>0;j++){
+                        for(int k=0;k<grades[j].size();k++){
                             e.getScores()[i]+=grades[j].get(k);
                             count--;
                             if(count<=0)
@@ -86,10 +87,30 @@ public class Manager {
                         }
                     }
                 }
+                //获得个人总分和小组的总分
+                e.setTolScore(getPlayerTolscore(e));
+                team.setTolScore(team.getTolScore()+e.getTolScore());
             }
+
         });
+        save();
+    }
+
+
+    /**
+     * 将结果保存到数据库
+     */
+    public void save(){
+        saveTeams();//保存每个组信息
 
         savePt();//将小组成员的分数保存
+    }
+
+    public int getPlayerTolscore(Player player){
+        int scoreTmp = 0;
+        for(Integer o:player.getScores())
+            scoreTmp+=o;
+        return scoreTmp;
     }
 
 
@@ -111,14 +132,13 @@ public class Manager {
         teams.forEach(e->teamDaoImpl.insertTeam(e));
     }
 
+
     /**
      * 裁判保存每个小组参赛队员的成绩
      */
     public void savePt()  {
         teams.forEach(e->{
-            for(Player o:e.getMembers()){
-                  ptDaoImpl.insertGrade(e);
-            }
+                  ptDaoImpl.insertPt(e);
         });
    }
 
@@ -142,21 +162,24 @@ public class Manager {
 
 
     /**
-     * 对每个小组进行的赛事进行排名
-     * @param
+     * 查询个人比赛的所有成绩
+     * @param pid
+     * @param name
      * @return
      */
-//    public JSONArray ranking(ContestType contestType){
-////        return PTDaoImpl.getInstance().findTeamGrade(contestType);
-//        return ptDaoImpl.findTeamGrade(contestType);
-//    }
-
-
     public List<PersonScore> findGrade(int pid,String name){
         return ptDaoImpl.findPlayerGrade(pid,name);
     }
 
+
+
+
+
+
+
     public List<Player> getPlayers() {
+        if(players==null)
+            players = playerDaoImpl.findAllPlayer();
         return players;
     }
 

@@ -7,11 +7,11 @@ import java.util.Random;
 public class Player {
     private int id;
     private String name;
-    private Integer[] scores = new Integer[10];
+    private int[] scores = new int[10];
 
-    private List<Integer>[] grades;
+    private List<Integer>[] grades =new List[10];
     private int tolScore;
-    private int foulsNum=0;
+    private int fouls =0;
 
     public Player() {
     }
@@ -25,7 +25,13 @@ public class Player {
      * 返回一个记录选手每次出手击倒的瓶子的数量
      * @return
      */
+
+    public void initScore(){
+        for(int i=0;i<10;i++)
+            scores[i] = 0;
+    }
     public List<Integer>[]  play(){
+        initScore();
         for(int i=0;i<10;i++){
             grades[i] = new ArrayList<Integer>();
             int firstRoll = roll(10);
@@ -55,17 +61,10 @@ public class Player {
         int grade = rand.nextInt(bottleNum+2);//bottleNum+1作为犯规情况模拟
         if(grade==bottleNum+1){
             grade = 0;
-            foulsNum++;
+            fouls++;
         }
         return grade;
     }
-
-    public void caculateToltalScore(){
-        for(Integer e:scores)
-            tolScore +=e;
-    }
-
-
 
     public int getId() {
         return id;
@@ -83,11 +82,11 @@ public class Player {
         this.name = name;
     }
 
-    public Integer[] getScores() {
+    public int[] getScores() {
         return scores;
     }
 
-    public void setScores(Integer[] scores) {
+    public void setScores(int[] scores) {
         this.scores = scores;
     }
 
@@ -107,13 +106,16 @@ public class Player {
         this.tolScore = tolScore;
     }
 
-    public int getFoulsNum() {
-        return foulsNum;
+    public int getFouls() {
+        return fouls;
     }
 
-    public void setFoulsNum(int foulsNum) {
-        this.foulsNum = foulsNum;
+    public void setFouls(int fouls) {
+        this.fouls = fouls;
     }
 
-
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

@@ -27,9 +27,10 @@ public class PlayerDaoImpl implements PlayerDao {
     //查询某个选手的信息
     private final String SELECT_PLAYER_SQL = "select count(*) from player where pid=? and name=?";
 
-
     //删除一个选手的信息
     private final String DELETE_PLAYER_SQL = "delete from player where pid = ? and name =?";
+
+
     /**
      * 在选手信息表中插入一条信息，表示已报名参赛
      * @param player 选手信息类
@@ -43,7 +44,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 
     /**
-     * 查询所有的选手
+     * 查询所有的选手信息
      * @return
      */
     @Override
@@ -58,7 +59,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
     /**
      * 删除指定选手的信息
-     * @param player
+     * @param player 选手信息类
      * @return
      */
     @Override

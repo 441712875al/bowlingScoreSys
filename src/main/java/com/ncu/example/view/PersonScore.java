@@ -17,12 +17,21 @@ public class PersonScore {
     private int score8;
     private int score9;
     private int score10;
+    private int fouls;
     private int totalScore;
 
 
-    public PersonScore(String name, String gameType,int pid,int tid, int score1,
+    public int getFouls() {
+        return fouls;
+    }
+
+    public void setFouls(int fouls) {
+        this.fouls = fouls;
+    }
+
+    public PersonScore(String name, String gameType, int pid, int tid, int score1,
                        int score2, int score3, int score4, int score5, int score6,
-                       int score7, int score8, int score9, int score10, int totalScore) {
+                       int score7, int score8, int score9, int score10, int fouls, int totalScore) {
         this.name = name;
         this.gameType = gameType;
         this.pid = pid;
@@ -37,6 +46,7 @@ public class PersonScore {
         this.score8 = score8;
         this.score9 = score9;
         this.score10 = score10;
+        this.fouls = fouls;
         this.totalScore = totalScore;
     }
 

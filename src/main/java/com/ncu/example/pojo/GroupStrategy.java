@@ -2,6 +2,9 @@ package com.ncu.example.pojo;
 
 
 
+import com.ncu.example.dao.PTDaoImpl;
+import com.ncu.example.dao.TeamDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -13,9 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class GroupStrategy {
 
-    private AtomicInteger counter = new AtomicInteger();
     private List<Player> players;
     private ContestType contestType;
+
+    @Autowired
+    private TeamDaoImpl teamDaoImpl;
 
 
 
@@ -23,23 +28,22 @@ public class GroupStrategy {
      * 根据比赛形式给每个参赛队员分组
      */
     public List<Team> group(){
+        int counter = teamDaoImpl.findMaxId();
+
         Collections.shuffle(players);
-        List<Team> teams = new ArrayList<Team>();
+        List<Team> teams = new ArrayList<>();
         int num = contestType.getPlayerNum();//获取这种比赛需要的队员人数
 
-        for(int i=0;i<players.size()/num;i+=num){
-            List<Player> members = new ArrayList<Player>();
+        for(int i=0;i<players.size();i+=num){
+            List<Player> members = new ArrayList<>();
+            for(int j=i;j<i+num;j++){
+                members.add(players.get(j));
+            }
 
-            for(int j=i;j<i+num;j++)
-                members.add(players.get(i));
-
-            teams.add(new Team(counter.getAndIncrement(),members, ContestType.DOUBLE));
+            teams.add(new Team(++counter,members, getContestType()));
         }
         return teams;
     }
-
-
-
 
 
 
