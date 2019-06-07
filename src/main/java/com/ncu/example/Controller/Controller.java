@@ -215,6 +215,7 @@ public class Controller {
         //向数据库获取运动员信息
         List<Player> players = manager.getPlayers();
 
+        players.forEach(System.out::println);
         ObservableList<Player> data = FXCollections.observableList(players);
 
         ((TableColumn)playersTable.getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<Player, String>("name"));

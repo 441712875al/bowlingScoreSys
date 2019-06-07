@@ -172,16 +172,10 @@ public class Manager {
     public List<PersonScore> findGrade(int pid,String name){
         return ptDaoImpl.findPlayerGrade(pid,name);
     }
-
-
-
-
-
-
+    
 
     public List<Player> getPlayers() {
-        if(players==null)
-            players = playerDaoImpl.findAllPlayer();
+        players = getPlayerDaoImpl().findAllPlayer();
         return players;
     }
 
