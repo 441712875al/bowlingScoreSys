@@ -62,7 +62,7 @@ public class Manager {
 
 
     //根据选手每次出手击倒的瓶数进行分数统计
-    public void countScore(){
+    public void calcScore(){
         teams.forEach(team->{
             for(Player e:team.getMembers()){
                 List<Integer>[] grades= e.play();
@@ -172,7 +172,7 @@ public class Manager {
     public List<PersonScore> findGrade(int pid,String name){
         return ptDaoImpl.findPlayerGrade(pid,name);
     }
-    
+
 
     public List<Player> getPlayers() {
         players = getPlayerDaoImpl().findAllPlayer();

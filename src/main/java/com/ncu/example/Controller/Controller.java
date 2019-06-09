@@ -22,10 +22,9 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 import java.util.ArrayList;
-
-
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @FXMLController
@@ -180,7 +179,7 @@ public class Controller {
              manager.register(pId,name);
              showInfoMessage("register successfully!");
         }catch (Exception e){
-             showInfoMessage("ID 格式输入有误,请重新输入！");
+             showInfoMessage("ID 格式输入有误或编号重复,请重新输入！");
          }
 
     }
@@ -215,7 +214,6 @@ public class Controller {
         //向数据库获取运动员信息
         List<Player> players = manager.getPlayers();
 
-        players.forEach(System.out::println);
         ObservableList<Player> data = FXCollections.observableList(players);
 
         ((TableColumn)playersTable.getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
@@ -268,20 +266,22 @@ public class Controller {
     @FXML
     void startGame(ActionEvent event) {
         //获取选择比赛类型
-
         ContestType contestType = toContestType((String) gameType.getSelectionModel().getSelectedItem());
+        List<GameScore> gameScores = null;
+        if(contestType!=ContestType.ELITE){
+            //比赛前分组
+            System.out.println("I'm coming");
+            manager.group(contestType);
+
+            //后台模拟选手击打保龄球后，裁判统计分数
+            manager.calcScore();
+            gameScores = manager.getPtDaoImpl().findTeamGrade(contestType);
+        }
+        else
+            gameScores = calcEliteScore();
 
 
-
-        //比赛前分组
-
-        manager.group(contestType);
-
-        //后台模拟选手击打保龄球后，裁判统计分数
-        manager.countScore();
-
-        List<GameScore> gameScores = manager.getPtDaoImpl().findTeamGrade(contestType);
-
+        //表格中显示数据
         ObservableList<GameScore> data = FXCollections.observableList(gameScores);
         String[] list = {"tid","name","pid","score","rank"};
         for(int i=0;i<5;i++){
@@ -289,6 +289,37 @@ public class Controller {
         }
         gameTable.setItems(data);
     }
+
+
+    /**
+     * 计算出精英赛的成绩
+     * @return
+     */
+    List<GameScore> calcEliteScore() {
+        List<GameScore> gameScores = new ArrayList<>();
+
+        //遍历每个选手的比赛得出总成绩
+        manager.getPlayers().forEach(e -> {
+            int score = 0;
+            for (PersonScore p : manager.getPtDaoImpl().findPlayerGrade(e.getId(), e.getName())) {
+                score += p.getTotalScore();
+            }
+            gameScores.add(new GameScore(e.getId(), e.getId(), e.getName(), score, 0));
+        });
+
+        //按分数排序
+        Collections.sort(gameScores,(o1,o2)->{
+                return o2.getScore()-o1.getScore();
+        });
+
+
+        //设置排名
+        int rank=1;
+        for(GameScore score:gameScores)
+            score.setRank(rank++);
+        return gameScores;
+    }
+
 
     /**
      * 将右侧所有的面板关闭
@@ -333,6 +364,7 @@ public class Controller {
             case "双人赛" :contestType = ContestType.DOUBLE;break;
             case "三人赛" :contestType = ContestType.TRIPLE;break;
             case "五人赛" :contestType = ContestType.QUINTUPLE;break;
+            case "精英赛" :contestType = ContestType.ELITE;break;
         }
         return contestType;
     }
